@@ -1,0 +1,4 @@
+repository "Cherry _Store_Room/Cherry _Store_Room@2474576591787@cloud"
+  path "/"
+    br "/main"
+    co "/main"
