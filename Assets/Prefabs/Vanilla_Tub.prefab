@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4323934526305005824}
   - component: {fileID: 1065596689643864679}
   - component: {fileID: -8992857461983871389}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Vanilla_Tub
   m_TagString: IceCream
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1467811579
+  m_SortingLayerID: -1452015607
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1179281692, guid: 978ec1c935dbdfe498cbfd247b171c97, type: 3}
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0017584264, y: 0.0069000423}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4909566, y: 0.55090827}
+  m_Size: {x: 0.4751329, y: 0.5460429}
   m_EdgeRadius: 0
 --- !u!50 &4323934526305005824
 Rigidbody2D:

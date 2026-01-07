@@ -19,6 +19,8 @@ public class IceCreamTub : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    public SpawnPoint owningSpawnPoint;
+
     public event Action OnTubRemoved; // fired when both tub & splat are gone
 
     void Start()
@@ -26,6 +28,8 @@ public class IceCreamTub : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         timer = totalLifeTime;
         sr.sprite = phase1Sprite;
+
+        OnTubRemoved += HandleTubRemoved;
     }
 
     void Update()
@@ -66,5 +70,13 @@ public class IceCreamTub : MonoBehaviour
             yield return null;
 
         OnTubRemoved?.Invoke();
+    }
+
+    void HandleTubRemoved()
+    {
+        if (owningSpawnPoint != null)
+        {
+            owningSpawnPoint.NotifyObjectRemoved();
+        }
     }
 }

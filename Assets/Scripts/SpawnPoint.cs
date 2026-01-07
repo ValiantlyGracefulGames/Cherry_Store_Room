@@ -14,14 +14,13 @@ public class SpawnPoint : MonoBehaviour
     private int objectCount = 0;
     private Coroutine cooldownRoutine;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    // Called by SpawnManager immediately after spawning
+    public void RegisterSpawnedObject()
     {
-        if (!other.CompareTag("IceCream")) return;
-
         objectCount++;
         IsOccupied = true;
 
-        // Stop cooldown if something re-enters
+        // Stop cooldown if something spawns early
         if (cooldownRoutine != null)
         {
             StopCoroutine(cooldownRoutine);
@@ -29,14 +28,13 @@ public class SpawnPoint : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    // Called by IceCreamTub AFTER tub + splat are fully gone
+    public void NotifyObjectRemoved()
     {
-        if (!other.CompareTag("IceCream")) return;
-
         objectCount = Mathf.Max(0, objectCount - 1);
         IsOccupied = objectCount > 0;
 
-        if (!IsOccupied && gameObject.activeInHierarchy)
+        if (!IsOccupied && cooldownRoutine == null && gameObject.activeInHierarchy)
         {
             cooldownRoutine = StartCoroutine(RespawnCooldown());
         }
@@ -60,5 +58,9 @@ public class SpawnPoint : MonoBehaviour
             StopCoroutine(cooldownRoutine);
             cooldownRoutine = null;
         }
+
+        objectCount = 0;
+        IsOccupied = false;
+        CanSpawn = true;
     }
 }

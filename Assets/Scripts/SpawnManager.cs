@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,10 @@ public class SpawnManager : MonoBehaviour
     public SpawnPoint spawnPoint2;
 
     public GameObject[] iceCreamTubPrefabs;
-    public float spawnInterval = 10f;
+
+    public float minSpawnInterval = 3f;
+    public float maxSpawnInterval = 8;
+    
 
     void Start()
     {
@@ -20,24 +23,41 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             TrySpawnTub();
-            yield return new WaitForSeconds(spawnInterval);
+            float delay = Random.Range(minSpawnInterval, maxSpawnInterval);
+            yield return new WaitForSeconds(delay);
         }
     }
 
     void TrySpawnTub()
     {
-        SpawnPoint chosenPoint = null;
+        List<SpawnPoint> availablePoints = new List<SpawnPoint>();
 
         if (!spawnPoint1.IsOccupied && spawnPoint1.CanSpawn)
-            chosenPoint = spawnPoint1;
-        else if (!spawnPoint2.IsOccupied && spawnPoint2.CanSpawn)
-            chosenPoint = spawnPoint2;
-        else
+            availablePoints.Add(spawnPoint1);
+
+        if (!spawnPoint2.IsOccupied && spawnPoint2.CanSpawn)
+            availablePoints.Add(spawnPoint2);
+
+        if (availablePoints.Count == 0)
             return;
+
+        SpawnPoint chosenPoint =
+            availablePoints[Random.Range(0, availablePoints.Count)];
 
         GameObject prefab =
             iceCreamTubPrefabs[Random.Range(0, iceCreamTubPrefabs.Length)];
 
-        Instantiate(prefab, chosenPoint.transform.position, Quaternion.identity);
+        GameObject tubGO =
+            Instantiate(prefab, chosenPoint.transform.position, Quaternion.identity);
+
+        // 🔗 Wire tub → spawn point
+        IceCreamTub tub = tubGO.GetComponent<IceCreamTub>();
+        if (tub != null)
+        {
+            tub.owningSpawnPoint = chosenPoint;
+        }
+
+        // 🔒 Mark spawn point occupied immediately
+        chosenPoint.RegisterSpawnedObject();
     }
 }
