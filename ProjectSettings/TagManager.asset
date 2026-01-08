@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - IceCream
+  - Splat
+  - Freezer
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Obstacle
   - Player
   - Ice_Cream
-  - 
+  - Freezer
   - 
   - 
   - 
@@ -47,4 +49,7 @@ TagManager:
     locked: 0
   - name: Ice_Cream_Layer
     uniqueID: 2842951689
+    locked: 0
+  - name: Freezer_Layer
+    uniqueID: 3274002409
     locked: 0

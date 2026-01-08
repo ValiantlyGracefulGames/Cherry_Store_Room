@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class IceCreamTub : MonoBehaviour
 {
-    public enum Flavor { Chocolate, Strawberry, Vanilla }
+    
     public Flavor flavor;
 
     public Sprite phase1Sprite;
@@ -16,25 +16,23 @@ public class IceCreamTub : MonoBehaviour
     private float timer;
 
     public GameObject splatPrefab;
-
     private SpriteRenderer sr;
 
-    public SpawnPoint owningSpawnPoint;
-
-    public event Action OnTubRemoved; // fired when both tub & splat are gone
+    private bool hasMelted = false;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         timer = totalLifeTime;
         sr.sprite = phase1Sprite;
-
-        OnTubRemoved += HandleTubRemoved;
     }
 
     void Update()
     {
         timer -= Time.deltaTime;
+
+        float difficulty = GameManager.Instance.GetDifficultyMultiplier();
+        timer -= Time.deltaTime * difficulty;
 
         float phaseTime = totalLifeTime / 3f;
 
@@ -44,39 +42,31 @@ public class IceCreamTub : MonoBehaviour
             sr.sprite = phase2Sprite;
         else if (timer > 0)
             sr.sprite = phase3Sprite;
-        else
+        else if (!hasMelted)
         {
-            // Tub “dies” but we keep track of splat
-            if (splatPrefab != null)
-            {
-                GameObject splat = Instantiate(splatPrefab, transform.position, Quaternion.identity);
-              
-                // Fire OnTubRemoved only AFTER splat is destroyed
-                StartCoroutine(NotifyWhenSplatGone(splat));
-            }
-            else
-            {
-                OnTubRemoved?.Invoke();
-            }
-
-            Destroy(gameObject); // destroy the tub
+            Melt();
         }
     }
 
-    private System.Collections.IEnumerator NotifyWhenSplatGone(GameObject splat)
-    {
-        // Wait until the splat is gone
-        while (splat != null)
-            yield return null;
+    void Melt()
 
-        OnTubRemoved?.Invoke();
+    {
+        if (hasMelted) return;
+        hasMelted = true;
+
+        // Spawn splat if prefab exists
+        if (splatPrefab != null)
+        {
+            Instantiate(splatPrefab, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 
-    void HandleTubRemoved()
+    // Called when player picks it up
+    public void OnPickedUp()
     {
-        if (owningSpawnPoint != null)
-        {
-            owningSpawnPoint.NotifyObjectRemoved();
-        }
+        // ❗ DO NOTHING HERE regarding spawn point
+        // Tub still counts as occupying until it melts
     }
 }

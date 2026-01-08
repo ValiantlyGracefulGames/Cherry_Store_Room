@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4127220673343849694}
   - component: {fileID: 8955110716618673805}
   - component: {fileID: 3114831977531544419}
-  m_Layer: 0
+  - component: {fileID: 7677895498973254545}
+  m_Layer: 10
   m_Name: Freezer_Vanilla
-  m_TagString: Untagged
+  m_TagString: Freezer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -173691165
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 240d5fffe0f11e944945542ef1da6155, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -115,10 +116,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014134943, y: -0.008480608}
+  m_Offset: {x: -0.0014134943, y: -0.011590451}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.78233427, y: 0.9773854}
+  m_Size: {x: 0.78233427, y: 0.9836047}
   m_EdgeRadius: 0
 --- !u!50 &3114831977531544419
 Rigidbody2D:
@@ -158,3 +159,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7677895498973254545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099008103021100597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba6853877717214fb2bf86e86d016a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezerFlavor: 2
+  deliveryEffect: {fileID: 2404959673591365450, guid: 4072daf0c62dab141a4f405f60408ddb, type: 3}

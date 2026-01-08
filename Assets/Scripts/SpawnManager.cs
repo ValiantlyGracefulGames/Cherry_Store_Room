@@ -9,9 +9,11 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject[] iceCreamTubPrefabs;
 
-    public float minSpawnInterval = 3f;
-    public float maxSpawnInterval = 8;
-    
+    public float minSpawnInterval = 2f;
+    public float maxSpawnInterval = 6;
+
+    [Header("Difficulty Scaling")]
+    public float maxDifficultyMultiplier = 2f;
 
     void Start()
     {
@@ -23,7 +25,9 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             TrySpawnTub();
-            float delay = Random.Range(minSpawnInterval, maxSpawnInterval);
+            float difficulty = GameManager.Instance.GetDifficultyMultiplier();
+            float delay = Random.Range(minSpawnInterval, maxSpawnInterval) / difficulty;
+
             yield return new WaitForSeconds(delay);
         }
     }
@@ -47,17 +51,10 @@ public class SpawnManager : MonoBehaviour
         GameObject prefab =
             iceCreamTubPrefabs[Random.Range(0, iceCreamTubPrefabs.Length)];
 
-        GameObject tubGO =
-            Instantiate(prefab, chosenPoint.transform.position, Quaternion.identity);
-
-        // 🔗 Wire tub → spawn point
-        IceCreamTub tub = tubGO.GetComponent<IceCreamTub>();
-        if (tub != null)
-        {
-            tub.owningSpawnPoint = chosenPoint;
-        }
-
-        // 🔒 Mark spawn point occupied immediately
-        chosenPoint.RegisterSpawnedObject();
+        Instantiate(
+            prefab,
+            chosenPoint.transform.position,
+            Quaternion.identity
+        );
     }
 }

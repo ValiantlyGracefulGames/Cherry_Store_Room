@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3573278540184383076}
   - component: {fileID: 4323934526305005824}
   - component: {fileID: 1065596689643864679}
-  - component: {fileID: -8992857461983871389}
   m_Layer: 9
   m_Name: Vanilla_Tub
   m_TagString: IceCream
@@ -172,27 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282a3435ea9d4524eb23c19d547c3b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flavor: 0
+  flavor: 2
   phase1Sprite: {fileID: -1179281692, guid: 978ec1c935dbdfe498cbfd247b171c97, type: 3}
   phase2Sprite: {fileID: -1988767232, guid: 978ec1c935dbdfe498cbfd247b171c97, type: 3}
   phase3Sprite: {fileID: -1060720385, guid: 978ec1c935dbdfe498cbfd247b171c97, type: 3}
   totalLifeTime: 20
   splatPrefab: {fileID: 8012194268777037945, guid: 7015fe784e550cb49bc6de7818b3d4b2, type: 3}
---- !u!114 &-8992857461983871389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1369065457233405969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf6fa682349d61b48b73a07ea06da4cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupRange: 1
-  pickupLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  holdPoint: {fileID: 0}
-  holdDistance: 0.5

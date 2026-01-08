@@ -4,39 +4,35 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [Header("Respawn Delay")]
-    public float minRespawnDelay = 7f;
-    public float maxRespawnDelay = 12f;
+    public float minRespawnDelay = 0.2f;
+    public float maxRespawnDelay = 0.5f;
 
-    public bool IsOccupied { get; private set; }
     public bool CanSpawn { get; private set; } = true;
 
-    private int objectCount = 0;
+    private int blockingObjects = 0;
     private Coroutine cooldownRoutine;
 
-    // Called by SpawnManager immediately after spawning
-    public void RegisterSpawnedObject()
-    {
-        objectCount++;
-        IsOccupied = true;
+    public bool IsOccupied => blockingObjects > 0;
 
-        // Stop cooldown if something spawns early
-        if (cooldownRoutine != null)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("IceCream") || other.CompareTag("Splat"))
         {
-            StopCoroutine(cooldownRoutine);
-            cooldownRoutine = null;
+            blockingObjects++;
         }
     }
 
-    // Called by IceCreamTub AFTER tub + splat are fully gone
-    public void NotifyObjectRemoved()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        objectCount = Mathf.Max(0, objectCount - 1);
-        IsOccupied = objectCount > 0;
-
-        if (!IsOccupied && cooldownRoutine == null && gameObject.activeInHierarchy)
+        if (other.CompareTag("IceCream") || other.CompareTag("Splat"))
         {
-            cooldownRoutine = StartCoroutine(RespawnCooldown());
+            blockingObjects = Mathf.Max(0, blockingObjects - 1);
+
+            // Only start cooldown if object active
+            if (blockingObjects == 0 && cooldownRoutine == null && gameObject.activeInHierarchy)
+            {
+                cooldownRoutine = StartCoroutine(RespawnCooldown());
+            }
         }
     }
 
@@ -53,14 +49,14 @@ public class SpawnPoint : MonoBehaviour
 
     private void OnDisable()
     {
+        // Stop the coroutine if disabled
         if (cooldownRoutine != null)
         {
             StopCoroutine(cooldownRoutine);
             cooldownRoutine = null;
         }
 
-        objectCount = 0;
-        IsOccupied = false;
+        blockingObjects = 0;
         CanSpawn = true;
     }
 }

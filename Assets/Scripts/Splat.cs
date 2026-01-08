@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Splat : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
     void Start()
     {
-        Destroy(this.gameObject, 10);
+        Destroy(gameObject, 10f);
     }
-
 }
