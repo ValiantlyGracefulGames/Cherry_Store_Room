@@ -177,3 +177,4 @@ MonoBehaviour:
   phase3Sprite: {fileID: 37574413, guid: 9d22e983bf0a1164d99a461a92db3e2a, type: 3}
   totalLifeTime: 20
   splatPrefab: {fileID: 856170324714552576, guid: d4736cae3130c6640b274034eb337326, type: 3}
+  splatSound: {fileID: 8300000, guid: 15f9b3566385cd34791a0ac8474b2b97, type: 3}

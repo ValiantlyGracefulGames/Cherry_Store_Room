@@ -8,7 +8,7 @@ public class PlayerPickup : MonoBehaviour
     public float pickupRange = 0.5f;
     public LayerMask pickupLayer;
     public Transform holdPoint;
-    public float holdDistance = 0.118f;
+    public float holdDistance = 0.25f;
 
     [Header("Delivery Settings")]
     public float interactRange = 0.5f;
@@ -17,6 +17,12 @@ public class PlayerPickup : MonoBehaviour
     private GameObject heldObject;
     private Collider2D heldCollider;
     private Vector2 lastMoveDir = Vector2.right;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public AudioClip correctDeliverySound;
 
     void Update()
     {
@@ -88,6 +94,8 @@ public class PlayerPickup : MonoBehaviour
             heldObject.transform.SetParent(holdPoint);
             heldObject.transform.localPosition = Vector3.zero;
 
+            audioSource.PlayOneShot(pickupSound);
+
             break; // only pick up one
         }
     }
@@ -117,9 +125,12 @@ public class PlayerPickup : MonoBehaviour
                 {
                     GameManager.Instance.OnTubDelivery(tub.flavor);
 
+                    audioSource.PlayOneShot(correctDeliverySound);
+
                     if (freezer.deliveryEffect != null)
                         Instantiate(freezer.deliveryEffect, freezer.transform.position, Quaternion.identity);
 
+                    Debug.Log("Correct freezer!");
                     Drop();
                     Destroy(tub.gameObject);
 
@@ -143,6 +154,8 @@ public class PlayerPickup : MonoBehaviour
 
             if (heldCollider != null)
                 heldCollider.enabled = true;
+
+            audioSource.PlayOneShot(dropSound);
 
             heldObject = null;
             heldCollider = null;

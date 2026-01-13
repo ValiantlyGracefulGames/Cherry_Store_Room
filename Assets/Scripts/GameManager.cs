@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
         "Cone-gratulations, you delivered like a pro!",
         "Life is better with sprinkles!"  
     };
+    [Header("Audio")]
+    public AudioClip streakBonusSound;
+    public AudioSource audioSource; // assign in inspector
 
     public float gameTime = 300f;   // 5 minutes
     private float remainingTime;
@@ -131,9 +134,14 @@ public class GameManager : MonoBehaviour
             points += 25;
             ShowStreakMessage("FLAVOR STREAK BONUS! +25");
 
+            if (streakBonusSound != null && audioSource != null)
+                audioSource.PlayOneShot(streakBonusSound, 0.5f); // 50% volume
+
             flavorStreak = 0;
             lastFlavor = null;
         }
+
+        AddScore(points);
     }
     public void ShowStreakMessage(string message)
     {

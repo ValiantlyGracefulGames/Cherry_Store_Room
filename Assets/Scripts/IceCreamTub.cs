@@ -20,6 +20,9 @@ public class IceCreamTub : MonoBehaviour
 
     private bool hasMelted = false;
 
+    [Header("SFX")]
+    public AudioClip splatSound;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -58,6 +61,11 @@ public class IceCreamTub : MonoBehaviour
         if (splatPrefab != null)
         {
             Instantiate(splatPrefab, transform.position, Quaternion.identity);
+        }
+        if (splatSound != null)
+        {
+            AudioSource.PlayClipAtPoint(splatSound, transform.position, 0.5f);
+            // 0.5f = 50% volume
         }
 
         Destroy(gameObject);
