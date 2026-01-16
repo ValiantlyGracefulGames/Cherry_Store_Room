@@ -53,3 +53,6 @@ TagManager:
   - name: Freezer_Layer
     uniqueID: 3274002409
     locked: 0
+  - name: Background
+    uniqueID: 1595125899
+    locked: 0

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Freezer : MonoBehaviour
 {
-   
     public Flavor freezerFlavor;
-
     public GameObject deliveryEffect;
-
 }

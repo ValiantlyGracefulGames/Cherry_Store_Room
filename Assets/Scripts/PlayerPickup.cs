@@ -129,8 +129,7 @@ public class PlayerPickup : MonoBehaviour
 
                     if (freezer.deliveryEffect != null)
                         Instantiate(freezer.deliveryEffect, freezer.transform.position, Quaternion.identity);
-
-                    Debug.Log("Correct freezer!");
+                   
                     Drop();
                     Destroy(tub.gameObject);
 

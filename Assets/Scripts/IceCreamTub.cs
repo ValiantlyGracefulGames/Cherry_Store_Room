@@ -12,7 +12,7 @@ public class IceCreamTub : MonoBehaviour
     public Sprite phase2Sprite;
     public Sprite phase3Sprite;
 
-    public float totalLifeTime = 20f;
+    public float totalLifeTime = 25f;
     private float timer;
 
     public GameObject splatPrefab;
