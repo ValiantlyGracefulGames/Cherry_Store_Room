@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float slowedSpeed = 2f;
+    public float slowDuration = 2f;
+
+    private float currentSpeed;
+    private bool isSlowed;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -16,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        currentSpeed = moveSpeed;
     }
 
     void Update()
@@ -41,6 +48,28 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + moveDir * currentSpeed * Time.fixedDeltaTime);
+    }
+
+    public void ApplySlow()
+    {
+
+        if (!isSlowed)
+        {
+            StopAllCoroutines();
+            StartCoroutine(SlowCoroutine());
+        }
+    }
+
+    IEnumerator SlowCoroutine()
+    {
+        
+        isSlowed = true;
+        currentSpeed = slowedSpeed;
+
+        yield return new WaitForSeconds(slowDuration);
+
+        currentSpeed = moveSpeed;
+        isSlowed = false;
     }
 }
