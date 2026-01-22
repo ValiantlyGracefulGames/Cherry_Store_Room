@@ -8,6 +8,8 @@ public class PlayerSelector : MonoBehaviour
     public GameObject[] players;
     public Transform selectionFrame;
 
+    public AudioSource moveSound; // assign in inspector
+
     private int currentIndex = 0;
     private Animator currentAnimator;
 
@@ -21,6 +23,8 @@ public class PlayerSelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             currentIndex = (currentIndex + 1) % players.Length;
+
+            PlayMoveSound();
             UpdateSelection();
         }
 
@@ -29,6 +33,8 @@ public class PlayerSelector : MonoBehaviour
             currentIndex--;
             if (currentIndex < 0)
                 currentIndex = players.Length - 1;
+
+            PlayMoveSound();
             UpdateSelection();
         }
 
@@ -49,5 +55,11 @@ public class PlayerSelector : MonoBehaviour
         currentAnimator = players[currentIndex].GetComponent<Animator>();
         if (currentAnimator != null)
             currentAnimator.SetBool("Walking", true);
+    }
+
+    void PlayMoveSound()
+    {
+        if (moveSound != null)
+            moveSound.Play();
     }
 }

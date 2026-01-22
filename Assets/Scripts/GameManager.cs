@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         {
             // Restart game on R
             if (Input.GetKeyDown(KeyCode.R))
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(0);
             Time.timeScale = 1f;
             return;
         }
